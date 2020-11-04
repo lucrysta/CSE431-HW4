@@ -61,22 +61,44 @@ def mergeSort(arr):
             j+= 1
             k+= 1
 
-# initiate unsorted array of n size
-ary_ins = list(range(0, 10))
-random.shuffle(ary_ins)
-ary_mer = copy.deepcopy(ary_ins)
+def test():
+    # initiate unsorted array of n size
+    ary_ins = list(range(0, 10000))
+    random.shuffle(ary_ins)
+    ary_mer = copy.deepcopy(ary_ins)
 
-# insertion
-start_ins = time.perf_counter() 
-insertionSort(ary_ins)
-end_ins = time.perf_counter()
-diff_ins = end_ins - start_ins
+    
+    # merge
+    start_mer = time.perf_counter()
+    mergeSort(ary_mer)
+    end_mer = time.perf_counter()
+    diff_mer = end_mer - start_mer
 
-# merge
-start_mer = time.perf_counter()
-mergeSort(ary_mer)
-end_mer = time.perf_counter()
-diff_mer = end_mer - start_mer
+    # insertion
+    start_ins = time.perf_counter() 
+    insertionSort(ary_ins)
+    end_ins = time.perf_counter()
+    diff_ins = end_ins - start_ins
 
-print(diff_ins, diff_mer)
-print(diff_ins - diff_mer)
+
+    print("ins= {}, mer= {}, diff= {}".format(diff_ins, diff_mer, diff_ins - diff_mer))
+    return[diff_ins, diff_mer, diff_ins - diff_mer]
+
+
+n = 100
+
+ins = 0
+mer = 0
+diff = 0
+
+for i in range(n):
+    ary = test()
+    ins += ary[0]
+    mer += ary[1]
+    diff += ary[2]
+
+ins /= n
+mer /= n
+diff /= n
+
+print("averages: ins {}, mer {}, diff {}".format(ins, mer, diff))
